@@ -62,7 +62,10 @@ class XLSX:
         )
         return df
 
-    def read(self, sheet_name, header=0):
+    def read(self, sheet_name=0, header=0):
+        if type(sheet_name) == int:
+            sheet_name = self.workbook.keys()[sheet_name]
+            
         sheet_id = self.workbook[sheet_name]
         sheet_path = 'xl/worksheets/sheet%s.xml' % sheet_id
         root = etree.parse(self.fh.open(sheet_path))
